@@ -1,33 +1,27 @@
+import 'react-native-gesture-handler'
+
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import { Provider} from "react-redux";
+import {Provider} from "react-redux";
 import {store} from "./src/redux/store";
 import GalleryContainer from "./src/components/Gallery/GalleryContainer";
+import ImageScreen from "./src/components/Gallery/ImageScreen";
+import {NavigationContainer} from "@react-navigation/native";
+import {createStackNavigator} from "@react-navigation/stack";
 
-export function App (){
+export default function App() {
 
+    const Stack = createStackNavigator()
 
     return (
-        <View className={styles.container}>
-            <Provider store={store}>
-                <GalleryContainer  />
-            </Provider>
-        </View>
+        <Provider store={store}>
+            <NavigationContainer>
+                <Stack.Navigator>
+                   <Stack.Screen name='Gallery' component={GalleryContainer}/>
+                   <Stack.Screen name='ImageScreen' component={ImageScreen} />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </Provider>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    input: {
-        width: '70%',
-        borderBottomColor: 'red',
-        borderWidth: 2,
-        padding: 10
-    }
-});
 
